@@ -122,6 +122,6 @@ def seedData(db):
             customer.Accounts.append(account)
 
         db.session.add(customer)
-        db.session.commit()
 
         antal = antal + 1
+    db.session.commit()

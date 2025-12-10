@@ -1,0 +1,11 @@
+{
+    "python.analysis.typeCheckingMode": "standard",
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+    "javascript.inlayHints.parameterTypes.enabled": true,
+    "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
+    "javascript.inlayHints.variableTypes.enabled": true,
+    "python.analysis.inlayHints.pytestParameters": true,
+    "python.analysis.typeEvaluation.enableReachabilityAnalysis": true
+}
