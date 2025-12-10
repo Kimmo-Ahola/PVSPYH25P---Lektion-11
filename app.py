@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, upgrade
-
+from livereload import Server
 from models.model import db, seedData
 
 
@@ -17,14 +17,16 @@ def startpage():
     return render_template("index.html")
 
 
-@app.route("/category/<id>")
-def category(id):
-    return render_template("category.html")
-
-
 if __name__ == "__main__":
-    with app.app_context():
-        upgrade()
-        seedData(db)
+    import os
 
-    app.run(debug=True)
+    if os.environ.get("FLASK_DEBUG") == "1":
+        from livereload import Server
+
+        server = Server(app.wsgi_app)
+        server.watch("templates/")
+        server.watch("static/")
+        server.serve(open_url_delay=True)
+    else:
+        # TODO implement something better later
+        app.run()

@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        {% block header %}
+        <!-- Default header, can be overridden -->
+        <h1>Welcome!</h1>
+        {% endblock %}
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Each page will put its content here -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        {% block footer %}
+        <!-- Optional footer -->
+        <p>&copy; 2025</p>
+        {% endblock %}
+    </footer>
+</body>
+</html>
