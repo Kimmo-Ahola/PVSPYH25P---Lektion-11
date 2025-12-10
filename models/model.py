@@ -1,13 +1,14 @@
 from flask_sqlalchemy import SQLAlchemy
 import barnum
 import random
-from datetime import datetime  
-from datetime import timedelta  
+from datetime import datetime
+from datetime import timedelta
 
 db = SQLAlchemy()
 
+
 class Customer(db.Model):
-    __tablename__= "Customers"
+    __tablename__ = "Customers"
     Id = db.Column(db.Integer, primary_key=True)
     GivenName = db.Column(db.String(50), unique=False, nullable=False)
     Surname = db.Column(db.String(50), unique=False, nullable=False)
@@ -22,41 +23,39 @@ class Customer(db.Model):
     Telephone = db.Column(db.String(20), unique=False, nullable=False)
     EmailAddress = db.Column(db.String(50), unique=False, nullable=False)
 
-    Accounts = db.relationship('Account', backref='Customer',
-     lazy=True)
+    Accounts = db.relationship("Account", backref="Customer", lazy=True)
+
 
 class Account(db.Model):
-    __tablename__= "Accounts"
+    __tablename__ = "Accounts"
     Id = db.Column(db.Integer, primary_key=True)
     AccountType = db.Column(db.String(10), unique=False, nullable=False)
     Created = db.Column(db.DateTime, unique=False, nullable=False)
     Balance = db.Column(db.Integer, unique=False, nullable=False)
-    Transactions = db.relationship('Transaction', backref='Account',
-     lazy=True)
-    CustomerId = db.Column(db.Integer, db.ForeignKey('Customers.Id'), nullable=False)
+    Transactions = db.relationship("Transaction", backref="Account", lazy=True)
+    CustomerId = db.Column(db.Integer, db.ForeignKey("Customers.Id"), nullable=False)
 
 
 class Transaction(db.Model):
-    __tablename__= "Transactions"
+    __tablename__ = "Transactions"
     Id = db.Column(db.Integer, primary_key=True)
     Type = db.Column(db.String(20), unique=False, nullable=False)
     Operation = db.Column(db.String(50), unique=False, nullable=False)
     Date = db.Column(db.DateTime, unique=False, nullable=False)
     Amount = db.Column(db.Integer, unique=False, nullable=False)
     NewBalance = db.Column(db.Integer, unique=False, nullable=False)
-    AccountId = db.Column(db.Integer, db.ForeignKey('Accounts.Id'), nullable=False)
-
+    AccountId = db.Column(db.Integer, db.ForeignKey("Accounts.Id"), nullable=False)
 
 
 def seedData(db):
-    antal =  Customer.query.count()
+    antal = Customer.query.count()
     while antal < 5000:
         customer = Customer()
-        
+
         customer.GivenName, customer.Surname = barnum.create_name()
 
         customer.Streetaddress = barnum.create_street()
-        customer.Zipcode, customer.City, _  = barnum.create_city_state_zip()
+        customer.Zipcode, customer.City, _ = barnum.create_city_state_zip()
         customer.Country = "USA"
         customer.CountryCode = "US"
         customer.Birthday = barnum.create_birthday()
@@ -66,26 +65,25 @@ def seedData(db):
         customer.Telephone = barnum.create_phone()
         customer.EmailAddress = barnum.create_email().lower()
 
-        for x in range(random.randint(1,4)):
+        for x in range(random.randint(1, 4)):
             account = Account()
 
-            c = random.randint(0,100)
+            c = random.randint(0, 100)
             if c < 33:
-                account.AccountType = "Personal"    
+                account.AccountType = "Personal"
             elif c < 66:
-                account.AccountType = "Checking"    
+                account.AccountType = "Checking"
             else:
-                account.AccountType = "Savings"    
+                account.AccountType = "Savings"
 
-
-            start = datetime.now() + timedelta(days=-random.randint(1000,10000))
+            start = datetime.now() + timedelta(days=-random.randint(1000, 10000))
             account.Created = start
             account.Balance = 0
-            
-            for n in range(random.randint(0,30)):
-                belopp = random.randint(0,30)*100
+
+            for n in range(random.randint(0, 30)):
+                belopp = random.randint(0, 30) * 100
                 tran = Transaction()
-                start = start+ timedelta(days=-random.randint(10,100))
+                start = start + timedelta(days=-random.randint(10, 100))
                 if start > datetime.now():
                     break
                 tran.Date = start
@@ -94,12 +92,12 @@ def seedData(db):
                 if account.Balance - belopp < 0:
                     tran.Type = "Debit"
                 else:
-                    if random.randint(0,100) > 70:
+                    if random.randint(0, 100) > 70:
                         tran.Type = "Debit"
                     else:
                         tran.Type = "Credit"
 
-                r = random.randint(0,100)
+                r = random.randint(0, 100)
                 if tran.Type == "Debit":
                     account.Balance = account.Balance + belopp
                     if r < 20:
@@ -121,12 +119,9 @@ def seedData(db):
 
                 tran.NewBalance = account.Balance
 
-
             customer.Accounts.append(account)
 
         db.session.add(customer)
         db.session.commit()
-        
+
         antal = antal + 1
-
-
