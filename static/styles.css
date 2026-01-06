@@ -65,6 +65,10 @@ table {
   --font-weight-medium: 500;
   --font-weight-bold: 700;
 
+  --border-radius-s: 0.25rem;
+  --border-radius-m: 0.5rem
+  --border-radius-lg: 0.75rem;
+
   /* Colors */
   --text-color-dark: #050505;
   --text-color-light: #fdfdfd;

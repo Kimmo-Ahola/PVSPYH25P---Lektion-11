@@ -28,8 +28,11 @@ if __name__ == "__main__":
             # We need the app_context when using the db outside of a request
             seedData(db)
         server = Server(app.wsgi_app)
-        server.watch("templates/")
-        server.watch("static/")
+        server.watch("templates/**/*.html")  # all HTML files recursively
+        server.watch("templates/components/*.html")  # or specific subfolder
+        server.watch("static/**/*.css")       # watch CSS recursively
+        server.watch("static/**/*.js")        # watch JS
+
         server.serve(open_url_delay=True)
     else:
         app.run()
