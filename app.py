@@ -16,8 +16,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 environment = os.getenv("FLASK_DEBUG")
 
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY") # ni har redan från WTForms
-app.config["SECURITY_PASSWORD_SALT"] = os.getenv("SECURITY_PASSWORD_SALT")
-app.config["SECURITY_PASSWORD_HASH"] = os.getenv("SECURITY_PASSWORD_HASH")
+app.config["SECURITY_PASSWORD_SALT"] = os.getenv("SECURITY_PASSWORD_SALT") # ge den värdet bcrypt i .env
+app.config["SECURITY_PASSWORD_HASH"] = os.getenv("SECURITY_PASSWORD_HASH") # ge den ett långt värde, gärna med koden i script.py
 app.config["SECURITY_PASSWORD_SINGLE_HASH"] = False
 
 
