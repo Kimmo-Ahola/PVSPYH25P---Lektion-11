@@ -114,7 +114,7 @@ def seed_employees(db, data_store):
     admin = data_store.find_role(UserRoles.ADMIN.value)
 
     if not admin:
-        data_store.create_role(name=UserRoles.ADMIN.value, description="Admin handles employees")
+        data_store.create_role(name=UserRoles.ADMIN.value, description="Admin handles employees") # remember to use .value when using the enum
 
     if not cashier:
         data_store.create_role(name=UserRoles.CASHIER.value, description="Cashier handles accounts and transactions")
@@ -124,11 +124,11 @@ def seed_employees(db, data_store):
     employees = db.session.query(Employee).count()
 
 
-    from flask_security.utils import hash_password
+    from flask_security.utils import hash_password # Use hash_password to keep passwords from being in plain text
     if employees == 0:
         data_store.create_user(email="admin@test.se",
                                username="Admin",
-                               password=hash_password("Hejsan123!"),
+                               password=hash_password("Hejsan123!"), # ideally we should load passwords from .env, but this is not needed for this exercise
                                roles=[data_store.find_role(UserRoles.ADMIN.value)])
         
         data_store.create_user(email="cashier@test.se",
