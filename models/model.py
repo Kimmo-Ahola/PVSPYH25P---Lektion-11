@@ -1,8 +1,11 @@
+from enum import StrEnum
 from enum import Enum as PyEnum
 import random
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import Integer, text
-from typing import Annotated
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import Integer, String, text
+from typing import Annotated, Optional
+from flask_security.core import RoleMixin, UserMixin
+
 from datetime import datetime
 from datetime import timedelta
 from database import db
@@ -14,6 +17,42 @@ class Types:
     int_pk = Annotated[
         int, mapped_column(Integer, primary_key=True, autoincrement=True)
     ]
+
+
+class UserRoles(StrEnum):
+    CASHIER = "CASHIER"
+    ADMIN = "ADMIN"
+
+
+roles_employees = db.Table(
+    "roles_employees",
+    db.Column("employee_id", db.Integer, db.ForeignKey("employees.id")),
+    db.Column("role_id", db.Integer, db.ForeignKey("role.id")),
+)
+
+
+class Role(db.Model, RoleMixin):
+    id: Mapped[Types.int_pk]
+    name: Mapped[str] = mapped_column(String(20), default=UserRoles.CASHIER.value)
+    description: Mapped[Optional[str]] = mapped_column(String(100))
+    employees: Mapped[list["Employee"]] = relationship(
+        "Employee", secondary=roles_employees, back_populates="roles"
+    )
+
+
+class Employee(db.Model, UserMixin):
+    __tablename__ = "employees"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    email: Mapped[str] = mapped_column(String(255), unique=True)
+    username: Mapped[str] = mapped_column(String(255), unique=True)
+
+    password: Mapped[str] = mapped_column(String(2000))
+    active: Mapped[bool] = mapped_column(default=True)
+    fs_uniquifier = db.Column(db.String(255), unique=True, nullable=False)
+    roles = db.relationship(
+        "Role", secondary=roles_employees, back_populates="employees"
+    )
+
 
 
 class Customer(db.Model):
@@ -70,12 +109,41 @@ class Transaction(db.Model):
     AccountId = mapped_column(db.Integer, db.ForeignKey("accounts.Id"), nullable=False)
 
 
+def seed_employees(db, data_store):
+    cashier = data_store.find_role(UserRoles.CASHIER.value)
+    admin = data_store.find_role(UserRoles.ADMIN.value)
+
+    if not admin:
+        data_store.create_role(name=UserRoles.ADMIN.value, description="Admin handles employees")
+
+    if not cashier:
+        data_store.create_role(name=UserRoles.CASHIER.value, description="Cashier handles accounts and transactions")
+
+    db.session.commit()
+
+    employees = db.session.query(Employee).count()
+
+
+    from flask_security.utils import hash_password
+    if employees == 0:
+        data_store.create_user(email="admin@test.se",
+                               username="Admin",
+                               password=hash_password("Hejsan123!"),
+                               roles=[data_store.find_role(UserRoles.ADMIN.value)])
+        
+        data_store.create_user(email="cashier@test.se",
+                               username="Cashier",
+                               password=hash_password("Hejsan123!"),
+                               roles=[data_store.find_role(UserRoles.CASHIER.value)])
+
+    db.session.commit()
+
 def seedData(db):
     locales = {"SV": "sv_SE", "DK": "da_DK", "NO": "no_NO", "FI": "fi_FI"}
     antal = db.session.query(Customer).count()
     countries = ["SV", "DK", "NO", "FI"]
 
-    while antal < 5000:
+    while antal < 5:
         customer = Customer()
         country = random.choice(countries)
         locale = locales[country]

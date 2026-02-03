@@ -1,0 +1,20 @@
+{% extends 'user/layout.html' %}
+{% block content %}
+<div class="container login">
+    <form class="form-light" method="POST" action="{{ url_for_security('login') }}">
+        {{ login_user_form.hidden_tag() }}
+        <h3>Logga in</h3>
+        <span>
+            <label for="email">Email:</label>
+            {{ login_user_form.email }}
+        </span>
+        
+        <span>
+            <label for="password">Password:</label>
+            {{ login_user_form.password }}
+        </span>
+        
+        {{ login_user_form.submit(value="Login", class="btn btn-primary") }}
+    </form>
+</div>
+{% endblock %}
