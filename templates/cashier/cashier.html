@@ -1,0 +1,22 @@
+<h2>Cashier</h2>
+<a href="{{ url_for('customer.search') }}" class="btn-primary">
+  Visa alla kunder
+</a>
+
+<hr>
+
+
+<h3>Hämta kund via kundnummer</h3>
+<form action="{{ url_for('customer.customer_profile') }}" method="get">
+  <input name="customer_id" placeholder="Kundnummer" required>
+  <button type="submit">Sök</button>
+</form>
+
+<hr>
+
+<h3>Sök kund (namn + stad)</h3>
+<form action="{{ url_for('customer.search') }}" method="get">
+  <input name="name" placeholder="Namn">
+  <input name="city" placeholder="Stad">
+  <button type="submit">Sök</button>
+</form>

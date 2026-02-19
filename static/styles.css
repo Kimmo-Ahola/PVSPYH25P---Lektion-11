@@ -1,10 +1,17 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    color: var(--text-color-dark);
+}
+h1, h2, h3, h4, h5, h6,
+p, li, span {
+    color: var(--text-color-dark);
+}
+
+
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -279,4 +286,319 @@ footer p{
   .container{
     max-width: 1400px;
   }
+}
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* background */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  position: relative;
+  z-index: 0;
+
+  background-image: url("/static/assets/finance-services-financial-transaction-e-commerce-e-payment_335657-3134.avif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.75);
+  z-index: -1;
+}
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+nav a {
+    color: var(--color-btn-primary);
+}
+
+nav a:hover {
+    color: var(--color-btn-primary-hover);
+}
+
+.card {
+    background: var(--color-bg-alt);
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.about-heading {
+  font-family: "Playfair Display", serif !important;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #321468; /* varm guld */
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+/* Guldlinjen */
+.about-heading::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 3px;
+  margin-top: 10px;
+  background: linear-gradient(
+    to right,
+    #277ee9,
+    #6edce6
+  );
+  border-radius: 2px;
+}
+
+.about-text {
+  font-family: "Inter", sans-serif;
+  color: #2e3e57;
+  max-width: 700px;
+  line-height: 1.6;
+}
+
+/* ===== HERO / INTERNETBANKEN ===== */
+
+.hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Huvudrubrik */
+.hero-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: #124ed0;
+  margin-bottom: 0.3rem;
+  position: relative;
+}
+
+/* Guld-accent under rubriken */
+.hero-accent {
+  display: block;
+  width: 90px;
+  height: 3px;
+  margin-top: 12px;
+  background: linear-gradient(
+    to right,
+    #f1dc8e,
+    #b89b2d,
+    #8c7420
+  );
+  border-radius: 3px;
+}
+
+/* Undertitel */
+.hero-subtitle {
+  font-family: "Inter", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #374151;
+  margin-top: 1rem;
+  margin-bottom: 0.6rem;
+}
+
+/* Beskrivning */
+.hero-text {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: #1390ca;
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+
+body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main{
+  flex: 1;
+}
+
+
+nav a{
+  color: #374151;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover{
+  color: #b89b2d;
+}
+
+
+
+/* ===== NAVBAR ANIMATION ===== */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Vanliga länkar */
+.nav-link {
+  position: relative;
+  font-family: "Inter", sans-serif;
+  color: #374151;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 6px 2px;
+  transition: color 0.25s ease;
+}
+
+/* Hover: textfärg */
+.nav-link:hover {
+  color: #b89b2d; /* guld */
+}
+
+/* Underline animation */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(to right, #f1dc8e, #b89b2d, #8c7420);
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+/* När man hovrar */
+.nav-link:hover::after {
+  width: 100%;
+}
+
+
+/* background */
+
+.home-page{
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.03), rgba(0,0,0,0.03)),
+    url("/static/assets/images/545f3a21-8964-499e-85c2-6c04cc80ed2c.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+
+
+
+
+/* about us  */
+
+.about-page .about-hero {
+  background:
+    linear-gradient(
+      rgba(168, 203, 219, 0.85),
+      rgba(2, 0, 0, 0.85)
+    ),
+    url("/static/assets/images/9a1784d7-20b7-4f53-a362-a6cc1a6ac28d.webp");
+
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+}
+
+.about-hero-content {
+  max-width: 700px;
+  padding: 3rem;
+  color: #9fc0f6;
+}
+
+.about-hero h1 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.about-hero h2 {
+  color: #93a4c0;
+  margin-bottom: 1rem;
+}
+
+
+/* style */
+
+.customer-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #fff;
+}
+
+.customer-table th,
+.customer-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.customer-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.customer-table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.customer-table tr:hover {
+  background-color: #eef3ff;
+}
+
+.customer-table a {
+  color: #1a4cff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.customer-table a:hover {
+  text-decoration: underline;
+}
+
+.pagination {
+  margin-top: 15px;
+}
+
+.pagination a {
+  margin-right: 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.page-info {
+  margin-top: 10px;
+  font-style: italic;
 }

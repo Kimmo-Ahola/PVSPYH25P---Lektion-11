@@ -1,0 +1,30 @@
+<h2>Kundprofil</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, msg in messages %}
+    <div class="alert alert-{{category}}">{{ msg }}</div>
+  {% endfor %}
+{% endwith %}
+
+{% if customer %}
+  <p><strong>Kundnr:</strong> {{ customer.Id }}</p>
+  <p><strong>Namn:</strong> {{ customer.GivenName }} {{ customer.Surname }}</p>
+  <p><strong>Adress:</strong> {{ customer.Streetaddress }}, {{ customer.Zipcode }} {{ customer.City }}</p>
+  <p><strong>Personnr:</strong> {{ customer.NationalId }}</p>
+
+  <h3>Konton</h3>
+  <p><strong>Totalt saldo:</strong> {{ total_balance }}</p>
+
+  <ul>
+    {% for a in accounts %}
+      <li>
+        <a href="{{ url_for('account.account', account_id=a.Id) }}">Konto {{ a.Id }}   
+        Konto {{ a.Id }}
+        </a>
+        — Saldo: {{ a.Balance }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Ingen kund vald.</p>
+{% endif %}
