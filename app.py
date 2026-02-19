@@ -39,7 +39,8 @@ def create_app():
     app.config["SECURITY_SEND_REGISTER_EMAIL"] = False
     app.config["SECURITY_PASSWORD_HASH"] = "pbkdf2_sha512"
 
-    SECURITY_POST_LOGIN_VIEW = "/after-login"
+    app.config["SECURITY_POST_LOGIN_VIEW"] = "/after-login"
+
 
 
     # --- Init extensions ---
