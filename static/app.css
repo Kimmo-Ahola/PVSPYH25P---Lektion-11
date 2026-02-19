@@ -28,3 +28,17 @@ body{ background:var(--bg); color:var(--text); font-family: system-ui, Arial; ma
 .btn.disabled{ opacity:.5; pointer-events:none; }
 
 .badge{ font-size:12px; padding:4px 8px; border-radius:999px; background:#eef2ff; color:#3730a3; }
+
+
+
+
+/* cashier  */
+
+.cashier-title h2{
+  font-size: 28px;
+  font-weight: 700;
+  color: #2563eb;   /* blå */
+  margin-bottom: 16px;
+}
+
+

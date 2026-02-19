@@ -11,7 +11,7 @@ p, li, span {
     color: var(--text-color-dark);
 }
 
-
+.home-page
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -113,6 +113,8 @@ button, input {
   --color-bg-alt: #ffffff;
 
 }
+
+nav
 
 html{
 	font-family: 'Poppins', Arial, sans-serif;
@@ -260,11 +262,34 @@ footer p{
   }
 
   h1{
-    font-size: var(--text-size-4xl);
+    font-size: var(--text-size-3xl);
+    
+    background: rgba(213, 164, 202, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 20px 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: rgb(223, 14, 171);
   }
   h2{
     font-size: var(--text-size-3xl);
+    background: rgba(46, 163, 236, 0.15);
+    backdrop-filter: blur(20px);
+    padding: 20px 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(105, 90, 241, 0.3);
+    color: rgb(72, 16, 185);
   }
+
+  .about-hero h2{
+  font-size: 1rem;
+  font-weight: 100;
+  color: rgb(72, 16, 185);
+  line-height: 1.6;
+  margin-top: 12px;
+  max-width: 600px;
+}
+
 }
 
 @media (min-width: 992px) {
@@ -298,24 +323,24 @@ html, body {
   margin: 0;
 }
 
-body {
-  position: relative;
-  z-index: 0;
 
-  background-image: url("/static/assets/finance-services-financial-transaction-e-commerce-e-payment_335657-3134.avif");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+
+body {
+  background: var(--color-bg-primary);
 }
+
+.home-page{
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.03), rgba(0,0,0,0.03)),
+    url("/static/assets/images/2.png");  /* NY BILD */
+}
+
 
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
   background: rgba(255, 255, 255, 0.75);
-  z-index: -1;
 }
+
+
 nav ul {
   list-style: none;
   padding: 0;
@@ -345,7 +370,7 @@ nav a:hover {
   font-family: "Playfair Display", serif !important;
   font-size: 2rem;
   font-weight: 600;
-  color: #321468; /* varm guld */
+  color: #e7e5eb; /* varm guld */
   margin-bottom: 0.5rem;
   position: relative;
 }
@@ -367,12 +392,12 @@ nav a:hover {
 
 .about-text {
   font-family: "Inter", sans-serif;
-  color: #2e3e57;
+  color: #ebeef1;
   max-width: 700px;
   line-height: 1.6;
 }
 
-/* ===== HERO / INTERNETBANKEN ===== */
+/*  */
 
 .hero {
   position: relative;
@@ -411,24 +436,8 @@ nav a:hover {
   border-radius: 3px;
 }
 
-/* Undertitel */
-.hero-subtitle {
-  font-family: "Inter", sans-serif;
-  font-size: 1.6rem;
-  font-weight: 500;
-  color: #374151;
-  margin-top: 1rem;
-  margin-bottom: 0.6rem;
-}
 
-/* Beskrivning */
-.hero-text {
-  font-family: "Inter", sans-serif;
-  font-size: 1rem;
-  color: #1390ca;
-  max-width: 520px;
-  line-height: 1.6;
-}
+
 
 
 body{
@@ -443,7 +452,7 @@ main{
 
 
 nav a{
-  color: #374151;
+  color: #d70bd4;
   text-decoration: none;
   font-weight: 500;
 }
@@ -453,43 +462,6 @@ nav a:hover{
 }
 
 
-
-/* ===== NAVBAR ANIMATION ===== */
-
-.navbar {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-/* Vanliga länkar */
-.nav-link {
-  position: relative;
-  font-family: "Inter", sans-serif;
-  color: #374151;
-  font-weight: 500;
-  text-decoration: none;
-  padding: 6px 2px;
-  transition: color 0.25s ease;
-}
-
-/* Hover: textfärg */
-.nav-link:hover {
-  color: #b89b2d; /* guld */
-}
-
-/* Underline animation */
-.nav-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  width: 0%;
-  height: 2px;
-  background: linear-gradient(to right, #f1dc8e, #b89b2d, #8c7420);
-  transition: width 0.3s ease;
-  border-radius: 2px;
-}
 
 /* När man hovrar */
 .nav-link:hover::after {
@@ -512,10 +484,9 @@ nav a:hover{
 
 
 
-
-
 /* about us  */
 
+/* bild  */
 .about-page .about-hero {
   background:
     linear-gradient(
@@ -602,3 +573,7 @@ nav a:hover{
   margin-top: 10px;
   font-style: italic;
 }
+
+
+/* loggin */
+

@@ -39,6 +39,7 @@ def create_app():
     app.config["SECURITY_SEND_REGISTER_EMAIL"] = False
     app.config["SECURITY_PASSWORD_HASH"] = "pbkdf2_sha512"
 
+    SECURITY_POST_LOGIN_VIEW = "/after-login"
 
 
     # --- Init extensions ---
@@ -58,6 +59,27 @@ def create_app():
 
 
     # --- Routes ---
+from flask import render_template, request, redirect, url_for
+from flask_security import current_user
+
+@app.route("/after-login")
+def after_login():
+    if not current_user.is_authenticated:
+        return redirect(url_for("security.login"))
+
+    if current_user.has_role("admin"):
+        return redirect("/admin")
+
+    if current_user.has_role("cashier"):
+        return redirect("/cashier")
+
+    return redirect("/")
+
+
+
+
+
+
     @app.route("/")
     def home():
         # G-krav: statistik synlig även utan inlogg

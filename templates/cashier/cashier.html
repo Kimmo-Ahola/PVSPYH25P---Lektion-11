@@ -1,22 +1,28 @@
-<h2>Cashier</h2>
-<a href="{{ url_for('customer.search') }}" class="btn-primary">
-  Visa alla kunder
-</a>
+<section class="cashier-wrap">
+  <div class="cashier-box">
 
-<hr>
+    <h2 class="cashier-title" >Cashier</h2>
 
+    <a href="{{ url_for('customer.search') }}" class="btn btn-primary">
+      View all customers
+    </a>
 
-<h3>Hämta kund via kundnummer</h3>
-<form action="{{ url_for('customer.customer_profile') }}" method="get">
-  <input name="customer_id" placeholder="Kundnummer" required>
-  <button type="submit">Sök</button>
-</form>
+    <hr class="cashier-hr">
 
-<hr>
+    <h3 class="cashier-h3">Get customer by ID</h3>
+    <form class="cashier-form" action="{{ url_for('customer.customer_profile') }}" method="get">
+      <input class="cashier-input" name="customer_id" placeholder="Customer ID" required>
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
 
-<h3>Sök kund (namn + stad)</h3>
-<form action="{{ url_for('customer.search') }}" method="get">
-  <input name="name" placeholder="Namn">
-  <input name="city" placeholder="Stad">
-  <button type="submit">Sök</button>
-</form>
+    <hr class="cashier-hr">
+
+    <h3 class="cashier-h3">Search customer (name + city)</h3>
+    <form class="cashier-form cashier-form-2" action="{{ url_for('customer.search') }}" method="get">
+      <input class="cashier-input" name="name" placeholder="Name">
+      <input class="cashier-input" name="city" placeholder="City">
+      <button class="btn btn-secondary" type="submit">Search</button>
+    </form>
+
+  </div>
+</section>
