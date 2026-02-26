@@ -7,6 +7,7 @@ from models.model import Customer, Account, Transaction, UserRoles
 from database import db
 
 customer_bp = Blueprint("customer", __name__, url_prefix="/customer")
+
 @customer_bp.route("/customer", methods=["GET"])
 @auth_required()
 @roles_required(UserRoles.Cashier.value)
@@ -33,7 +34,6 @@ def customer_profile():
     )
 
 
-
 @customer_bp.route("/search", methods=["GET"])
 @auth_required()
 @roles_required(UserRoles.Cashier.value)
@@ -57,11 +57,9 @@ def search():
     pagination = query.paginate(page=page, per_page=50, error_out=False)
 
     return render_template(
-    "cashier/search.html",
-    customers=pagination.items,
-    pagination=pagination,
-    name=name,
-    city=city,
-)
-
-   
+        "cashier/search.html",
+        customers=pagination.items,
+        pagination=pagination,
+        name=name,
+        city=city,
+    )

@@ -8,7 +8,7 @@ body {
 }
 h1, h2, h3, h4, h5, h6,
 p, li, span {
-    color: var(--text-color-dark);
+    color: var(--text-color-light);
 }
 
 .home-page
@@ -114,7 +114,7 @@ button, input {
 
 }
 
-nav
+
 
 html{
 	font-family: 'Poppins', Arial, sans-serif;
@@ -264,22 +264,14 @@ footer p{
   h1{
     font-size: var(--text-size-3xl);
     
-    background: rgba(213, 164, 202, 0.15);
-    backdrop-filter: blur(10px);
-    padding: 20px 30px;
-    border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: rgb(223, 14, 171);
+    color: rgb(246, 250, 246);
   }
-  h2{
-    font-size: var(--text-size-3xl);
-    background: rgba(46, 163, 236, 0.15);
-    backdrop-filter: blur(20px);
-    padding: 20px 30px;
-    border-radius: 16px;
-    border: 1px solid rgba(105, 90, 241, 0.3);
-    color: rgb(72, 16, 185);
-  }
+h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+
 
   .about-hero h2{
   font-size: 1rem;
@@ -325,20 +317,7 @@ html, body {
 
 
 
-body {
-  background: var(--color-bg-primary);
-}
 
-.home-page{
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.03), rgba(0,0,0,0.03)),
-    url("/static/assets/images/2.png");  /* NY BILD */
-}
-
-
-body::before {
-  background: rgba(255, 255, 255, 0.75);
-}
 
 
 nav ul {
@@ -359,12 +338,32 @@ nav a:hover {
 }
 
 .card {
-    background: var(--color-bg-alt);
-    padding: 2rem;
+    background-color: #1e293b;  /* mörkgrå-blå */
+    color: white;
+    border: none;
     border-radius: 12px;
-    max-width: 500px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
+
+.btn-primary {
+    background-color: #3b82f6;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #2563eb;
+}
+
+.btn-success {
+    background-color: #22c55e;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #16a34a;
+}
+
+
+
 
 .about-heading {
   font-family: "Playfair Display", serif !important;
@@ -452,7 +451,7 @@ main{
 
 
 nav a{
-  color: #d70bd4;
+  color: #130113;
   text-decoration: none;
   font-weight: 500;
 }
@@ -471,16 +470,18 @@ nav a:hover{
 
 /* background */
 
-.home-page{
+body.home-page{
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0.03), rgba(0,0,0,0.03)),
-    url("/static/assets/images/545f3a21-8964-499e-85c2-6c04cc80ed2c.png");
+    linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
+    url("/static/assets/images/home_bg.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  min-height: 100vh;
 }
+
+
+
 
 
 
@@ -490,10 +491,10 @@ nav a:hover{
 .about-page .about-hero {
   background:
     linear-gradient(
-      rgba(168, 203, 219, 0.85),
-      rgba(2, 0, 0, 0.85)
+      rgba(8, 82, 64, 0.85),
+      rgba(16, 15, 15, 0.85)
     ),
-    url("/static/assets/images/9a1784d7-20b7-4f53-a362-a6cc1a6ac28d.webp");
+    url("/static/assets/images/545f3a21-8964-499e-85c2-6c04cc80ed2c.png");
 
   background-size: cover;
   background-position: center;
@@ -515,65 +516,203 @@ nav a:hover{
 }
 
 .about-hero h2 {
-  color: #93a4c0;
-  margin-bottom: 1rem;
+ 
+    background: rgba(213, 164, 202, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 20px 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(42, 161, 96, 0.3);
+    color: rgb(232, 235, 236);
 }
-
 
 /* style */
+/* table */
 
-.customer-table {
-  width: 100%;
+.customer-table{
+  width: 80%;
+  margin: 20px auto;              /* centrerar tabellen */
   border-collapse: collapse;
-  margin-top: 20px;
-  background-color: #fff;
+  background-color: #ffffff;
+  box-shadow: 0 8px 20px rgba(10, 113, 233, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 0.95rem;
 }
 
-.customer-table th,
-.customer-table td {
-  border: 1px solid #ccc;
+/* Header */
+.customer-table th{
+  background-color: #88e6a9;
+  color: rgb(6, 48, 29);
   padding: 10px;
   text-align: left;
+  border: 2px solid #051111;
+  font-weight: 600;
 }
 
-.customer-table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
+/* Celler */
+.customer-table td{
+  padding: 5px;
+  border: 2px solid #499b9e;
+  color: #110407;
 }
 
-.customer-table tr:nth-child(even) {
-  background-color: #fafafa;
+/* Zebra-ränder */
+.customer-table tbody tr:nth-child(even){
+  background-color: #9db5b4;
 }
 
-.customer-table tr:hover {
-  background-color: #eef3ff;
+/* Hover-effekt */
+.customer-table tbody tr:hover{
+  background-color: #a91f1f;
+  transition: 0.2s;
 }
 
-.customer-table a {
-  color: #1a4cff;
-  text-decoration: none;
-  font-weight: bold;
+/* Länkar i tabellen */
+.customer-table a{
+  color: #2563eb;
+  text-decoration:dashed;
+  font-weight: 600;
 }
 
-.customer-table a:hover {
+.customer-table a:hover{
   text-decoration: underline;
 }
 
-.pagination {
-  margin-top: 15px;
-}
-
-.pagination a {
-  margin-right: 10px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.page-info {
-  margin-top: 10px;
-  font-style: italic;
-}
-
-
 /* loggin */
+
+
+  .container.login {
+    background-color: rgba(238, 227, 227, 0.91);
+    padding: 50px;
+    border-radius: 12px;
+}
+
+
+
+
+/* cashier */
+
+.view-customers-btn{
+  display: inline-block;
+  background: #3882F6;
+  color: #110202;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.view-customers-btn:hover{
+  background: #1ac91a;
+}
+
+
+.cashier-wrap{
+  min-height: 100vh;
+
+  background-image:
+    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    url("/static/assets/images/1.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 100px;
+}
+
+
+
+/* knappar i transaktioner*/
+
+button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2563eb;
+}
+
+table {
+    color: white;
+}
+
+th {
+    color: white;
+}
+
+td {
+    color: white;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;   /* 🔥 Viktig */
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    font-weight: bold;
+    color: white;
+}
+
+
+/* kundprofil */
+
+.bank-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 16px 0 24px;
+  background: #1e293b;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bank-table th,
+.bank-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(6, 99, 20, 0.08);
+  color: #e5e7eb;
+}
+
+.bank-table th {
+  width: 30%;
+  background: #0f172a;
+  color: #ffffff;
+  text-align: left;
+  font-weight: 600;
+}
+
+.bank-table thead th {
+  width: auto;
+}
+
+.bank-table tbody tr:hover {
+  background: rgba(3, 94, 23, 0.04);
+}
+
+.text-right {
+  text-align: right;
+}
+
+.total {
+  color: #e5e7eb;
+  margin-top: 10px;
+}
+
 

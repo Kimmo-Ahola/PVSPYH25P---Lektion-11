@@ -1,9 +1,10 @@
-<h2>Konto {{ account.Id }}</h2>
+<h2>Konto : {{ account.Id }}</h2>
 <p><strong>Saldo:</strong> {{ account.Balance }}</p>
 
-<h3>Transaktioner (nyast först)</h3>
+<h3> Transaktioner (nyast först)</h3>
 <table>
   <thead>
+     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <tr>
       <th>Datum</th>
       <th>Typ</th>

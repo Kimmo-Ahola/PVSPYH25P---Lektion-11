@@ -53,19 +53,13 @@ class Employee(db.Model, UserMixin):
     username: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String(2000), nullable=False)
     active: Mapped[bool] = mapped_column(default=True)
-
-    # Flask-Security kräver denna (unik och inte null)
     fs_uniquifier = db.Column(
         db.String(64),
         unique=True,
         nullable=False,
         default=lambda: uuid.uuid4().hex
     )
-
     roles = db.relationship("Role", secondary=roles_employees, back_populates="employees") # type: ignore
-
-
-
 
 
 
@@ -126,47 +120,36 @@ class Transaction(db.Model):
 
 
 
-    
-
 def seed_employees(db, data_store):
-    # Roller
-    if not data_store.find_role(UserRoles.Admin.value):
-        data_store.create_role(
-            name=UserRoles.Admin.value,
-            description="Admin handles employees"
-        )
-
-    if not data_store.find_role(UserRoles.Cashier.value):
-        data_store.create_role(
-            name=UserRoles.Cashier.value,
-            description="Cashier handles accounts and transactions"
-        )
 
     db.session.commit()
 
-    # Users (EXAKT enligt uppgiften)
-    admin_email = "kimmo.ahola@systementor.se"
-    cashier_email = "kimmo.ahola@webbramwerk.se"
+    admin_role = data_store.find_role(UserRoles.Admin.value)
+    cashier_role = data_store.find_role(UserRoles.Cashier.value)
 
-    admin_user = data_store.find_user(email=admin_email)
+    admin_user = data_store.find_user(email="kimmo.ahola@systementor.se")
     if not admin_user:
-        data_store.create_user(
-            email=admin_email,
+        admin_user = data_store.create_user(
+            email="kimmo.ahola@systementor.se",
             username="Admin",
             password=hash_password("Hejsan123!"),
-            roles=[data_store.find_role(UserRoles.Admin.value)],
         )
+    admin_user.roles = [admin_role]   
 
-    cashier_user = data_store.find_user(email=cashier_email)
+    cashier_user = data_store.find_user(email="kimmo.ahola@webbramwerk.se")
     if not cashier_user:
-        data_store.create_user(
-            email=cashier_email,
+        cashier_user = data_store.create_user(
+            email="kimmo.ahola@webbramwerk.se",
             username="Cashier",
             password=hash_password("Hejsan123!"),
-            roles=[data_store.find_role(UserRoles.Cashier.value)],
         )
+    cashier_user.roles = [cashier_role]  
 
     db.session.commit()
+
+
+    
+
 
 
 

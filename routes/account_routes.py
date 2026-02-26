@@ -23,7 +23,7 @@ def account(account_id):
 
 def _parse_amount(s: str) -> Decimal:
     try:
-        # stöd både "100.50" och "100,50"
+        
         s = (s or "").strip().replace(",", ".")
         return Decimal(s)
     except (InvalidOperation, ValueError):

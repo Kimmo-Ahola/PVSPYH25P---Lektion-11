@@ -1,44 +1,42 @@
-
-<a href="{{ url_for('customer.search') }}" class="btn-primary">
-  Visa alla kunder
-</a>
-
-
-<h1>Sökresultat</h1>
-
-<p>Antal kunder i listan: {{ customers|length }}</p>
-
-<table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%;">
+<table class="customer-table" border="1" cellpadding="4" cellspacing="0" style="border-collapse:collapse; width:80%;">
   <thead>
+     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <tr>
       <th>Kundnr</th>
       <th>Personnr</th>
       <th>Namn</th>
       <th>Adress</th>
       <th>Stad</th>
+      <th>Kund information</th>
     </tr>
   </thead>
+
   <tbody>
     {% for c in customers %}
     <tr>
-      <td>
-        <a href="{{ url_for('customer.customer_profile', customer_id=c.Id) }}">{{ c.Id }}</a>
-      </td>
+      
+      <td>{{ c.Id }}</td>
+
       <td>{{ c.NationalId }}</td>
       <td>{{ c.GivenName }} {{ c.Surname }}</td>
       <td>{{ c.Streetaddress }}</td>
       <td>{{ c.City }}</td>
+
+      <!-- Öppna: Visa-länk -->
+      <td>
+        <a href="{{ url_for('customer.customer_profile', customer_id=c.Id) }}"
+           class="btn btn-secondary">
+          👁 Visa
+        </a>
+      </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
-
-<p>Sida {{ pagination.page }} av {{ pagination.pages }}</p>
-
-
 <div class="pagination">
+
   {% if pagination.has_prev %}
-    <a href="{{ url_for('customer.search', page=pagination.page-1) }}">
+    <a href="{{ url_for('customer.search', page=pagination.page-1, name=name, city=city) }}">
       ← Föregående
     </a>
   {% endif %}
@@ -48,8 +46,9 @@
   </span>
 
   {% if pagination.has_next %}
-    <a href="{{ url_for('customer.search', page=pagination.page+1) }}">
+    <a href="{{ url_for('customer.search', page=pagination.page+1, name=name, city=city) }}">
       Nästa →
     </a>
   {% endif %}
+
 </div>
