@@ -1,0 +1,52 @@
+<h2>Konto : {{ account.Id }}</h2>
+<p><strong>Saldo:</strong> {{ account.Balance }}</p>
+
+<h3> Transaktioner (nyast först)</h3>
+<table>
+  <thead>
+     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <tr>
+      <th>Datum</th>
+      <th>Typ</th>
+      <th>Operation</th>
+      <th>Belopp</th>
+      <th>Nytt saldo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t in transactions %}
+      <tr>
+        <td>{{ t.Date }}</td>
+        <td>{{ t.Type }}</td>
+        <td>{{ t.Operation }}</td>
+        <td>{{ t.Amount }}</td>
+        <td>{{ t.NewBalance }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h3>Insättning</h3>
+<form method="post" action="{{ url_for('account.deposit_route', account_id=account.Id) }}">
+  <input name="amount" placeholder="Belopp" required>
+  <button type="submit">Sätt in</button>
+</form>
+
+<h3>Uttag</h3>
+<form method="post" action="{{ url_for('account.withdraw_route', account_id=account.Id) }}">
+  <input name="amount" placeholder="Belopp" required>
+  <button type="submit">Ta ut</button>
+</form>
+
+<h3>Överföring</h3>
+<form method="post" action="{{ url_for('account.transfer_route', account_id=account.Id) }}">
+  <input name="to_account_id" placeholder="Till konto-id" required>
+  <input name="amount" placeholder="Belopp" required>
+  <button type="submit">Överför</button>
+</form>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, msg in messages %}
+    <div class="alert alert-{{ category }}">{{ msg }}</div>
+  {% endfor %}
+{% endwith %}

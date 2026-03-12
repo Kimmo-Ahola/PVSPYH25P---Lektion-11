@@ -2,15 +2,18 @@ from enum import StrEnum
 from enum import Enum as PyEnum
 import random
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import Integer, String, text
+from sqlalchemy import Integer, String, text, Numeric
 from typing import Annotated, Optional
 from flask_security.core import RoleMixin, UserMixin
-
+import uuid
 from datetime import datetime
 from datetime import timedelta
 from database import db
 from faker import Faker
 from datetime import datetime, timedelta
+from flask_security.utils import hash_password
+from decimal import Decimal
+
 
 
 class Types:
@@ -20,38 +23,43 @@ class Types:
 
 
 class UserRoles(StrEnum):
-    CASHIER = "CASHIER"
-    ADMIN = "ADMIN"
+    Cashier = "Cashier"
+    Admin = "Admin"
 
 
 roles_employees = db.Table(
     "roles_employees",
     db.Column("employee_id", db.Integer, db.ForeignKey("employees.id")),
-    db.Column("role_id", db.Integer, db.ForeignKey("role.id")),
+    db.Column("role_id", db.Integer, db.ForeignKey("roles.id")),
 )
 
 
 class Role(db.Model, RoleMixin):
-    id: Mapped[Types.int_pk]
-    name: Mapped[str] = mapped_column(String(20), default=UserRoles.CASHIER.value)
-    description: Mapped[Optional[str]] = mapped_column(String(100))
+    __tablename__ = "roles"
+    id: Mapped[Types.int_pk] # type: ignore
+    name: Mapped[str] = mapped_column(String(20), default=UserRoles.Cashier.value) # type: ignore
+    description: Mapped[Optional[str]] = mapped_column(String(100)) # type: ignore
     employees: Mapped[list["Employee"]] = relationship(
-        "Employee", secondary=roles_employees, back_populates="roles"
-    )
+        "Employee", secondary=roles_employees, back_populates="roles")
+
+
 
 
 class Employee(db.Model, UserMixin):
     __tablename__ = "employees"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    email: Mapped[str] = mapped_column(String(255), unique=True)
-    username: Mapped[str] = mapped_column(String(255), unique=True)
 
-    password: Mapped[str] = mapped_column(String(2000))
+    id: Mapped[Types.int_pk] = mapped_column(primary_key=True)
+    email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
+    username: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
+    password: Mapped[str] = mapped_column(String(2000), nullable=False)
     active: Mapped[bool] = mapped_column(default=True)
-    fs_uniquifier = db.Column(db.String(255), unique=True, nullable=False)
-    roles = db.relationship(
-        "Role", secondary=roles_employees, back_populates="employees"
+    fs_uniquifier = db.Column(
+        db.String(64),
+        unique=True,
+        nullable=False,
+        default=lambda: uuid.uuid4().hex
     )
+    roles = db.relationship("Role", secondary=roles_employees, back_populates="employees") # type: ignore
 
 
 
@@ -91,7 +99,7 @@ class Account(db.Model):
         nullable=False,
     )
     Created = mapped_column(db.DateTime, unique=False, nullable=False)
-    Balance = mapped_column(db.Integer, unique=False, nullable=False)
+    Balance =mapped_column(Numeric(18, 2), nullable=False, default=Decimal("0.00"))
     Transactions = db.relationship("Transaction", backref="Account", lazy=True)
     CustomerId = mapped_column(
         db.Integer, db.ForeignKey("customers.Id"), nullable=False
@@ -104,132 +112,124 @@ class Transaction(db.Model):
     Type = mapped_column(db.String(20), unique=False, nullable=False)
     Operation = mapped_column(db.String(50), unique=False, nullable=False)
     Date = mapped_column(db.DateTime, unique=False, nullable=False)
-    Amount = mapped_column(db.Integer, unique=False, nullable=False)
-    NewBalance = mapped_column(db.Integer, unique=False, nullable=False)
+    Amount = mapped_column(Numeric(18, 2), nullable=False)
+    NewBalance = mapped_column(Numeric(18, 2), nullable=False)
     AccountId = mapped_column(db.Integer, db.ForeignKey("accounts.Id"), nullable=False)
 
 
+
+
+from flask_security.utils import hash_password
+
+from flask_security.utils import hash_password
+
 def seed_employees(db, data_store):
-    cashier = data_store.find_role(UserRoles.CASHIER.value)
-    admin = data_store.find_role(UserRoles.ADMIN.value)
+    admin_role = data_store.find_or_create_role(name=UserRoles.Admin.value)
+    cashier_role = data_store.find_or_create_role(name=UserRoles.Cashier.value)
 
-    if not admin:
-        data_store.create_role(name=UserRoles.ADMIN.value, description="Admin handles employees") # remember to use .value when using the enum
+    admin_user = data_store.find_user(email="kimmo.ahola@systementor.se")
+    if not admin_user:
+        admin_user = data_store.create_user(
+            email="kimmo.ahola@systementor.se",
+            username="Admin",
+            password=hash_password("Hejsan123!"),
+            roles=[admin_role]
+        )
+    else:
+        admin_user.roles = [admin_role]
 
-    if not cashier:
-        data_store.create_role(name=UserRoles.CASHIER.value, description="Cashier handles accounts and transactions")
+    cashier_user = data_store.find_user(email="kimmo.ahola@webbramwerk.se")
+    if not cashier_user:
+        cashier_user = data_store.create_user(
+            email="kimmo.ahola@webbramwerk.se",
+            username="Cashier",
+            password=hash_password("Hejsan123!"),
+            roles=[cashier_role]
+        )
+    else:
+        cashier_user.roles = [cashier_role]
 
     db.session.commit()
+   
 
-    employees = db.session.query(Employee).count()
 
-
-    from flask_security.utils import hash_password # Use hash_password to keep passwords from being in plain text
-    if employees == 0:
-        data_store.create_user(email="admin@test.se",
-                               username="Admin",
-                               password=hash_password("Hejsan123!"), # ideally we should load passwords from .env, but this is not needed for this exercise
-                               roles=[data_store.find_role(UserRoles.ADMIN.value)])
-        
-        data_store.create_user(email="cashier@test.se",
-                               username="Cashier",
-                               password=hash_password("Hejsan123!"),
-                               roles=[data_store.find_role(UserRoles.CASHIER.value)])
-
-    db.session.commit()
-
-def seedData(db):
+def seedData(db, target_customers=500):
     locales = {"SV": "sv_SE", "DK": "da_DK", "NO": "no_NO", "FI": "fi_FI"}
-    antal = db.session.query(Customer).count()
     countries = ["SV", "DK", "NO", "FI"]
 
-    while antal < 5:
-        customer = Customer()
-        country = random.choice(countries)
-        locale = locales[country]
-        fake = Faker(locale)
+    antal = db.session.query(Customer).count()
+    batch_size = 50  # commit i klumpar
 
-        # Generate names
-        customer.GivenName = fake.first_name()
-        customer.Surname = fake.last_name()
+    while antal < target_customers:
+        batch = []
+        to_create = min(batch_size, target_customers - antal)
 
-        # Address
-        customer.Streetaddress = fake.street_address()
-        customer.Zipcode = fake.postcode()
-        customer.City = fake.city()
-        customer.Country = random.choice(countries)
-        customer.CountryCode = random.choice(countries)
+        for _ in range(to_create):
+            customer = Customer()
+            country = random.choice(countries)
+            fake = Faker(locales[country])
 
-        # Birthday & NationalId
-        customer.Birthday = fake.date_of_birth(minimum_age=18, maximum_age=90)
-        cc_number = fake.random_number(digits=4, fix_len=True)
-        customer.NationalId = customer.Birthday.strftime("%Y%m%d-") + str(cc_number)
+            customer.GivenName = fake.first_name()
+            customer.Surname = fake.last_name()
 
-        # Phone & Email
-        customer.TelephoneCountryCode = 55
-        customer.Telephone = fake.phone_number()
-        customer.EmailAddress = fake.email().lower()
+            customer.Streetaddress = fake.street_address()
+            customer.Zipcode = fake.postcode()
+            customer.City = fake.city()
+            customer.Country = country
+            customer.CountryCode = country
 
-        # Accounts
-        for _ in range(random.randint(1, 4)):
-            account = Account()
+            customer.Birthday = fake.date_of_birth(minimum_age=18, maximum_age=90)
+            cc_number = fake.random_number(digits=4, fix_len=True)
+            customer.NationalId = customer.Birthday.strftime("%Y%m%d-") + str(cc_number)
 
-            c = random.randint(0, 100)
-            if c < 33:
-                account.AccountType = AccountType.PERSONAL
-            elif c < 66:
-                account.AccountType = AccountType.CHECKING
-            else:
-                account.AccountType = AccountType.SAVINGS
+            customer.TelephoneCountryCode = 46
+            customer.Telephone = fake.phone_number()
+            customer.EmailAddress = fake.email().lower()
 
-            start = datetime.now() + timedelta(days=-random.randint(1000, 10000))
-            account.Created = start
-            account.Balance = 0
+            # Accounts (håll ner antalet för fart)
+            for _ in range(random.randint(1, 2)):
+                account = Account()
+                account.AccountType = random.choice(list(AccountType))
+                start = datetime.now() - timedelta(days=random.randint(1000, 10000))
+                account.Created = start
+                account.Balance = 0
 
-            # Transactions
-            for _ in range(random.randint(0, 30)):
-                tran = Transaction()
-                start = start + timedelta(days=-random.randint(10, 100))
-                if start > datetime.now():
-                    break
-                tran.Date = start
+                # Transactions (håll ner för fart)
+                for _ in range(random.randint(0, 10)):
+                    tran = Transaction()
+                    start = start + timedelta(days=random.randint(1, 30))
+                    tran.Date = start
 
-                belopp = random.randint(0, 30) * 100
-                tran.Amount = belopp
+                    belopp = random.randint(1, 30) * 100
+                    is_deposit = random.randint(0, 100) < 50
 
-                # Determine debit/credit
-                if account.Balance - belopp < 0:
-                    tran.Type = "Debit"
-                else:
-                    tran.Type = "Credit" if random.randint(0, 100) > 70 else "Debit"
-
-                # Operations
-                r = random.randint(0, 100)
-                if tran.Type == "Debit":
-                    account.Balance += belopp
-                    if r < 20:
-                        tran.Operation = "Deposit cash"
-                    elif r < 66:
-                        tran.Operation = "Salary"
+                    if is_deposit:
+                        tran.Type = "Credit"
+                        tran.Operation = "Deposit"
+                        account.Balance += belopp
                     else:
-                        tran.Operation = "Transfer"
-                else:
-                    account.Balance -= belopp
-                    if r < 40:
-                        tran.Operation = "ATM withdrawal"
-                    elif r < 75:
+                        tran.Type = "Debit"
                         tran.Operation = "Payment"
-                    elif r < 85:
-                        tran.Operation = "Bank withdrawal"
-                    else:
-                        tran.Operation = "Transfer"
+                        # tillåt att det kan gå minus i seed eller skydda:
+                        if account.Balance - belopp < 0:
+                            # gör insättning istället om det saknas saldo
+                            tran.Type = "Credit"
+                            tran.Operation = "Deposit"
+                            account.Balance += belopp
+                        else:
+                            account.Balance -= belopp
 
-                tran.NewBalance = account.Balance
-                account.Transactions.append(tran)
+                    tran.Amount = belopp
+                    tran.NewBalance = account.Balance
+                    account.Transactions.append(tran)
 
-            customer.Accounts.append(account)
+                customer.Accounts.append(account)
 
-        db.session.add(customer)
-        antal += 1
+            batch.append(customer)
 
-    db.session.commit()
+        db.session.add_all(batch)
+        db.session.commit()
+        antal = db.session.query(Customer).count()
+
+
+    
