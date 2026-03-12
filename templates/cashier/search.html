@@ -1,0 +1,71 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+<h2>Sökresultat</h2>
+
+<table class="customer-table" border="1" cellpadding="4" cellspacing="0" style="border-collapse:collapse; width:80%;">
+  <thead>
+    <tr>
+        <th>
+            Kundnr
+            <a class="sort-arrow" href="{{ url_for('customer.search', page=1, name=name, city=city, sort_by='Id', sort_order='asc') }}">&#9650;</a>
+            <a class="sort-arrow" href="{{ url_for('customer.search', page=1, name=name, city=city, sort_by='Id', sort_order='desc') }}">&#9660;</a>
+        </th>
+
+        <th>
+            Personnr
+            <a class="sort-arrow" href="{{ url_for('customer.search', page=1, name=name, city=city, sort_by='NationalId', sort_order='asc') }}">&#9650;</a>
+            <a class="sort-arrow" href="{{ url_for('customer.search', page=1, name=name, city=city, sort_by='NationalId', sort_order='desc') }}">&#9660;</a>
+        </th>
+
+        <th>
+            Namn
+            <a class="sort-arrow" href="{{ url_for('customer.search', page=1, name=name, city=city, sort_by='GivenName', sort_order='asc') }}">&#9650;</a>
+            <a class="sort-arrow" href="{{ url_for('customer.search', page=1, name=name, city=city, sort_by='GivenName', sort_order='desc') }}">&#9660;</a>
+        </th>
+
+        <th>
+            Adress
+            <a class="sort-arrow" href="{{ url_for('customer.search', page=1, name=name, city=city, sort_by='Streetaddress', sort_order='asc') }}">&#9650;</a>
+            <a class="sort-arrow" href="{{ url_for('customer.search', page=1, name=name, city=city, sort_by='Streetaddress', sort_order='desc') }}">&#9660;</a>
+        </th>
+
+        <th>
+            Stad
+            <a class="sort-arrow" href="{{ url_for('customer.search', page=1, name=name, city=city, sort_by='City', sort_order='asc') }}">&#9650;</a>
+            <a class="sort-arrow" href="{{ url_for('customer.search', page=1, name=name, city=city, sort_by='City', sort_order='desc') }}">&#9660;</a>
+        </th>
+
+        <th>Info</th>
+    </tr>
+</thead>
+      
+
+  <tbody>
+    {% for c in customers %}
+    <tr>
+      <td>{{ c.Id }}</td>
+      <td>{{ c.NationalId }}</td>
+      <td>{{ c.GivenName }} {{ c.Surname }}</td>
+      <td>{{ c.Streetaddress }}</td>
+      <td>{{ c.City }}</td>
+      <td>
+        <a href="{{ url_for('customer.customer_profile', customer_id=c.Id) }}">
+          Visa
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="pagination">
+    {% if pagination.has_prev %}
+        <a href="{{ url_for('customer.search', page=pagination.prev_num, name=name, city=city, sort_by=sort_by, sort_order=sort_order) }}">Föregående</a>
+    {% endif %}
+
+    <span>Sida {{ pagination.page }} av {{ pagination.pages }}</span>
+
+    {% if pagination.has_next %}
+        <a href="{{ url_for('customer.search', page=pagination.next_num, name=name, city=city, sort_by=sort_by, sort_order=sort_order) }}">Nästa</a>
+    {% endif %}
+</div>

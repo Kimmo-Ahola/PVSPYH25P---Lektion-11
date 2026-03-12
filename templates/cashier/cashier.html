@@ -1,0 +1,35 @@
+<section class="cashier-wrap">
+  <div class="cashier-box">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    
+    <h2 class="cashier-title" >Cashier</h2>
+
+    <a href="{{ url_for('customer.search') }}" class="btn btn-primary">
+  View all customers
+</a>
+      
+
+    <hr class="cashier-hr">
+
+    <h3 class="cashier-h3">Get customer by ID</h3>
+    <form class="cashier-form" action="{{ url_for('customer.customer_profile') }}" method="get">
+      <input class="cashier-input" name="customer_id" placeholder="Customer ID" required>
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+
+    <hr class="cashier-hr">
+
+    <h3 class="cashier-h3">Search customer (name + city)</h3>
+    <form class="cashier-form cashier-form-2" action="{{ url_for('customer.search') }}" method="get">
+      <input class="cashier-input" name="name" placeholder="Name">
+      <input class="cashier-input" name="city" placeholder="City">
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+
+  </div>
+
+   <a class="btn btn-primary" href="{{ url_for('security.logout') }}">
+                Logout
+            </a>
+</section>

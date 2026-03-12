@@ -3,7 +3,11 @@
         <nav class="text-primary">
             <a href="{{url_for('home')}}"><img src="{{url_for('static', filename='assets/images/bank-logo.png')}}" alt="bank logo"></a>
             <ul>
-                <li><a href="{{url_for('home')}}">Home</a></li>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About us</a></li>
+
+            
+                
                 {% if current_user.is_authenticated %}
                     {% if current_user.has_role('CASHIER') %}
                         <li><a href="{{url_for('cashier.start')}}">Cashier route</a></li>
@@ -12,9 +16,10 @@
                     {% endif %}
                     <li><a class="btn btn-primary" href="{{url_for('security.logout')}}">Logout</a></li>
                 {% else %}
-                    <li><a class="btn btn-primary" href="{{url_for('security.login')}}">Login</a></li>
+                    <li><a class="btn btn-primary" href="{{ url_for('login_choice') }}">Logga in</a></li>
                 {% endif %}
                 </ul>
+                
         </nav>
     </div>
 </header>

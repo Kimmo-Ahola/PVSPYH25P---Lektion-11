@@ -1,10 +1,17 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    color: var(--text-color-dark);
+}
+h1, h2, h3, h4, h5, h6,
+p, li, span {
+    color: var(--text-color-light);
+}
+
+.home-page
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -106,6 +113,8 @@ button, input {
   --color-bg-alt: #ffffff;
 
 }
+
+
 
 html{
 	font-family: 'Poppins', Arial, sans-serif;
@@ -253,11 +262,26 @@ footer p{
   }
 
   h1{
-    font-size: var(--text-size-4xl);
-  }
-  h2{
     font-size: var(--text-size-3xl);
+    
+    color: rgb(246, 250, 246);
   }
+h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+
+
+  .about-hero h2{
+  font-size: 1rem;
+  font-weight: 100;
+  color: rgb(72, 16, 185);
+  line-height: 1.6;
+  margin-top: 12px;
+  max-width: 600px;
+}
+
 }
 
 @media (min-width: 992px) {
@@ -279,4 +303,451 @@ footer p{
   .container{
     max-width: 1400px;
   }
+}
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* background */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+
+
+
+
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+nav a {
+    color: var(--color-btn-primary);
+}
+
+nav a:hover {
+    color: var(--color-btn-primary-hover);
+}
+
+.card {
+    background-color: #1e293b;  /* mörkgrå-blå */
+    color: white;
+    border: none;
+    border-radius: 12px;
+}
+
+.btn-primary {
+    background-color: #3b82f6;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #2563eb;
+}
+
+.btn-success {
+    background-color: #22c55e;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #16a34a;
+}
+
+
+
+
+.about-heading {
+  font-family: "Playfair Display", serif !important;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #e7e5eb; /* varm guld */
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+/* Guldlinjen */
+.about-heading::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 3px;
+  margin-top: 10px;
+  background: linear-gradient(
+    to right,
+    #277ee9,
+    #6edce6
+  );
+  border-radius: 2px;
+}
+
+.about-text {
+  font-family: "Inter", sans-serif;
+  color: #ebeef1;
+  max-width: 700px;
+  line-height: 1.6;
+}
+
+/*  */
+
+.hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Huvudrubrik */
+.hero-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: #124ed0;
+  margin-bottom: 0.3rem;
+  position: relative;
+}
+
+/* Guld-accent under rubriken */
+.hero-accent {
+  display: block;
+  width: 90px;
+  height: 3px;
+  margin-top: 12px;
+  background: linear-gradient(
+    to right,
+    #f1dc8e,
+    #b89b2d,
+    #8c7420
+  );
+  border-radius: 3px;
+}
+
+
+
+
+
+body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main{
+  flex: 1;
+}
+
+
+nav a{
+  color: #130113;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover{
+  color: #b89b2d;
+}
+
+
+
+/* När man hovrar */
+.nav-link:hover::after {
+  width: 100%;
+}
+
+
+/* background */
+
+body.home-page{
+  background-image:
+    linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
+    url("/static/assets/images/home_bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+
+
+
+
+
+/* about us  */
+
+/* bild  */
+.about-page .about-hero {
+  background:
+    linear-gradient(
+      rgba(8, 82, 64, 0.85),
+      rgba(16, 15, 15, 0.85)
+    ),
+    url("/static/assets/images/545f3a21-8964-499e-85c2-6c04cc80ed2c.png");
+
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+}
+
+.about-hero-content {
+  max-width: 700px;
+  padding: 3rem;
+  color: #9fc0f6;
+}
+
+.about-hero h1 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.about-hero h2 {
+ 
+    background: rgba(213, 164, 202, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 20px 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(42, 161, 96, 0.3);
+    color: rgb(232, 235, 236);
+}
+
+/* style */
+/* table */
+
+.customer-table{
+  width: 80%;
+  margin: 20px auto;              /* centrerar tabellen */
+  border-collapse: collapse;
+  background-color: #ffffff;
+  box-shadow: 0 8px 20px rgba(10, 113, 233, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 0.95rem;
+}
+
+/* Header */
+.customer-table th{
+  background-color: #88e6a9;
+  color: rgb(6, 48, 29);
+  padding: 10px;
+  text-align: left;
+  border: 2px solid #051111;
+  font-weight: 600;
+}
+
+/* Celler */
+.customer-table td{
+  padding: 5px;
+  border: 2px solid #499b9e;
+  color: #110407;
+}
+
+/* Zebra-ränder */
+.customer-table tbody tr:nth-child(even){
+  background-color: #9db5b4;
+}
+
+/* Hover-effekt */
+.customer-table tbody tr:hover{
+  background-color: #a91f1f;
+  transition: 0.2s;
+}
+
+/* Länkar i tabellen */
+.customer-table a{
+  color: #2563eb;
+  text-decoration:dashed;
+  font-weight: 600;
+}
+
+.customer-table a:hover{
+  text-decoration: underline;
+}
+
+/* loggin */
+
+
+  .container.login {
+    background-color: rgba(238, 227, 227, 0.91);
+    padding: 50px;
+    border-radius: 12px;
+}
+
+
+
+
+/* cashier */
+
+.view-customers-btn{
+  display: inline-block;
+  background: #3882F6;
+  color: #110202;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.view-customers-btn:hover{
+  background: #1ac91a;
+}
+
+
+.cashier-wrap{
+  min-height: 100vh;
+
+  background-image:
+    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    url("/static/assets/images/1.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 100px;
+}
+
+
+
+/* knappar i transaktioner*/
+
+button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2563eb;
+}
+
+table {
+    color: white;
+}
+
+th {
+    color: white;
+}
+
+td {
+    color: white;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;   /* 🔥 Viktig */
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    font-weight: bold;
+    color: white;
+}
+
+
+/* kundprofil */
+
+.bank-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 16px 0 24px;
+  background: #1e293b;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bank-table th,
+.bank-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(6, 99, 20, 0.08);
+  color: #e5e7eb;
+}
+
+.bank-table th {
+  width: 30%;
+  background: #0f172a;
+  color: #ffffff;
+  text-align: left;
+  font-weight: 600;
+}
+
+.bank-table thead th {
+  width: auto;
+}
+
+.bank-table tbody tr:hover {
+  background: rgba(3, 94, 23, 0.04);
+}
+
+.text-right {
+  text-align: right;
+}
+
+.total {
+  color: #e5e7eb;
+  margin-top: 10px;
+}
+
+
+.alert {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+
+
+.sort-arrow{
+    text-decoration:none;
+    margin-left:4px;
+    font-size:14px;
+    color:#1f2937;
+    font-weight:bold;
+}
+
+.sort-arrow:hover{
+    color:#3882F6;
 }

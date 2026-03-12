@@ -5,12 +5,14 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<body>
+
+<body class="{% block body_class %}{% endblock %}">
+
     {% include 'components/_navbar.html' %}
     
     <main>
         {% block content %}
-        <!-- Each page will put its content here -->
+        
         {% endblock %}
     </main>
 

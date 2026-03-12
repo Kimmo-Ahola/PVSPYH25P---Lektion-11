@@ -1,0 +1,31 @@
+{% extends "user/layout.html" %}
+{% block content %}
+<div class="container text-center mt-5">
+    <h1>welcome to the bank</h1>
+    
+    <div class="row mt-4">
+        
+        <!-- Val 1: Admin -->
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h3>Cashier</h3>
+                <!-- För Admin/Cashier (Personal) -->
+              <a href="{{ url_for('security.login') }}" class="btn btn-primary">Logga in Cashier</a>
+
+
+            </div>
+        </div>
+
+
+        <!-- Val 3: Customer (Bara en länk, ingen inloggning) -->
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h3>Admin</h3>
+                <a href="{{ url_for('security.login') }}" class="btn btn-primary">Logga in Admin</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
