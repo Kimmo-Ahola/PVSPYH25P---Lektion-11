@@ -716,3 +716,38 @@ th {
 }
 
 
+.alert {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+
+
+.sort-arrow{
+    text-decoration:none;
+    margin-left:4px;
+    font-size:14px;
+    color:#1f2937;
+    font-weight:bold;
+}
+
+.sort-arrow:hover{
+    color:#3882F6;
+}

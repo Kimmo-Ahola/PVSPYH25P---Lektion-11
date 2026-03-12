@@ -4,18 +4,53 @@
 {% block body_class %}home-page{% endblock %}
 
 {% block content %}
+
 <section class="hero text-primary">
     <div class="container">
+
         <h1 style="color: rgb(211, 240, 221);">Smart banking starts with smart thinking</h1>
-        <h2 >Welcome to an exclusive banking experience</h2>
-        <p style="color: black;"> <br>
-Our digital bank is designed for those who value discretion <br>
- security, and excellence. Manage your finances with confidence <br>
-  through a platform that combines advanced protection <br>
+        <h2 >>>Welcome to an exclusive banking experience<<</h2>
+        <p style="color: rgb(14, 3, 3);"> <br><br>
+          <br>
+          <br>
+Our digital bank is designed for those who value discretion 
+ security, and excellence. <br> Manage your finances with confidence 
+  through a platform that combines <br> advanced protection 
    seamless performance, and refined simplicity. <br>
     Because your wealth deserves a higher standard.</p>
+          
+
+   <h1 class="dashboard-title" style="color: rgb(10, 77, 34); font-size: 20px;" >
+  Banköversikt
+  
+</h1>
+
+<div class="stats">
+  <div class="card-single">
+
+    <div class="stat-row">
+      <span style="color: rgb(213, 214, 228); font-size: 15px;" >Antal kunder</span>
+      <strong>{{ customer_count }}</strong>
+    </div>
+
+    <div class="stat-row">
+      <span style="color: rgb(230, 230, 236); font-size: 15px;">Antal konton</span>
+      <strong>{{ account_count }}</strong>
+    </div>
+
+    <div class="stat-row">
+      <span style="color: rgb(230, 231, 237); font-size: 15px;">Totalt saldo</span>
+      <strong>{{ total_balance }} kr</strong>
+    </div>
+
+  </div>
+</div>
         
     </div>
+
 </section>
+
+
+
 
 {% endblock %}

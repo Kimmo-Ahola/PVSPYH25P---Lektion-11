@@ -8,9 +8,9 @@
         <!-- Val 1: Admin -->
         <div class="col-md-4">
             <div class="card p-3">
-                <h3>Admin/Cashier</h3>
+                <h3>Cashier</h3>
                 <!-- För Admin/Cashier (Personal) -->
-              <a href="{{ url_for('security.login') }}" class="btn btn-primary">Logga in Personal</a>
+              <a href="{{ url_for('security.login') }}" class="btn btn-primary">Logga in Cashier</a>
 
 
             </div>
@@ -20,8 +20,8 @@
         <!-- Val 3: Customer (Bara en länk, ingen inloggning) -->
         <div class="col-md-4">
             <div class="card p-3">
-                <h3>customer</h3>
-                <a href="{{ url_for('customer.customer_profile') }}" class="btn btn-success">Logga in customer</a>
+                <h3>Admin</h3>
+                <a href="{{ url_for('security.login') }}" class="btn btn-primary">Logga in Admin</a>
             </div>
         </div>
 

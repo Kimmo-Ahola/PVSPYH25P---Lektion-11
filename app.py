@@ -51,8 +51,8 @@ def create_app():
     # --- Blueprints ---
     
     app.register_blueprint(cashier_bp)
-    app.register_blueprint(customer_bp, url_prefix="/customer")
-    app.register_blueprint(account_bp, url_prefix="/account")
+    app.register_blueprint(customer_bp)
+    app.register_blueprint(account_bp)
 
     # --- Routes ---
     @app.route("/")
@@ -95,11 +95,6 @@ def create_app():
             login_user_form=form
         )
 
-
-    @app.route("/customer-area")
-    def customer_start():
-    
-        return redirect(url_for('customer.customer_profile')) 
 
     
     from models.model import UserRoles

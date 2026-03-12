@@ -119,13 +119,13 @@ class Transaction(db.Model):
 
 
 
+from flask_security.utils import hash_password
+
+from flask_security.utils import hash_password
 
 def seed_employees(db, data_store):
-
-    db.session.commit()
-
-    admin_role = data_store.find_role(UserRoles.Admin.value)
-    cashier_role = data_store.find_role(UserRoles.Cashier.value)
+    admin_role = data_store.find_or_create_role(name=UserRoles.Admin.value)
+    cashier_role = data_store.find_or_create_role(name=UserRoles.Cashier.value)
 
     admin_user = data_store.find_user(email="kimmo.ahola@systementor.se")
     if not admin_user:
@@ -133,8 +133,10 @@ def seed_employees(db, data_store):
             email="kimmo.ahola@systementor.se",
             username="Admin",
             password=hash_password("Hejsan123!"),
+            roles=[admin_role]
         )
-    admin_user.roles = [admin_role]   
+    else:
+        admin_user.roles = [admin_role]
 
     cashier_user = data_store.find_user(email="kimmo.ahola@webbramwerk.se")
     if not cashier_user:
@@ -142,15 +144,13 @@ def seed_employees(db, data_store):
             email="kimmo.ahola@webbramwerk.se",
             username="Cashier",
             password=hash_password("Hejsan123!"),
+            roles=[cashier_role]
         )
-    cashier_user.roles = [cashier_role]  
+    else:
+        cashier_user.roles = [cashier_role]
 
     db.session.commit()
-
-
-    
-
-
+   
 
 
 def seedData(db, target_customers=500):
